@@ -2,7 +2,9 @@
   "required_packages": [
     "squid",
     "libselinux-python",
-    "policycoreutils-python"
+    "policycoreutils-python",
+    "python2-boto3",
+    "python2-botocore"
   ],
   "squid_topo": {
     "prod": {
