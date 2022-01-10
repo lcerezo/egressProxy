@@ -7,6 +7,7 @@
 
   - name: set selinux port for squid
     become: true
+    when: ansible_facts.selinux.status == 'enabled'
     seport:
       ports: "{{ squid_http_port }}"
       proto: tcp
