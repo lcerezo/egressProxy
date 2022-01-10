@@ -1,0 +1,29 @@
+---
+  - name: copy squid config to squid server
+    template:
+      owner: squid
+      group: squid
+      mode: "0644"
+      selevel: s0
+      serole: object_r
+      setype: squid_conf_t
+      seuser: system_u
+      src: squid.conf.j2
+      dest: "/etc/squid/squid.conf"
+    become: true
+    notify: restart squid
+
+  - name: copy permitlists out to squid server
+    template:
+      owner: squid
+      group: squid
+      mode: "0644"
+      selevel: s0
+      serole: object_r
+      setype: squid_conf_t
+      seuser: system_u
+      src: permitlist_.j2
+      dest: "/etc/squid/permitlist_{{ item.key }}"
+    become: true
+    notify: restart squid
+    with_dict: "{{ squid_topo }}"

@@ -1,0 +1,3 @@
+{% for recipient in smtp.destination_domains %}
+{{ recipient.name }} {{ recipient.status }}
+{% endfor %}

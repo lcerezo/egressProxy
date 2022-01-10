@@ -1,0 +1,17 @@
+---
+  - name: install squid and required pkgs
+    become: true
+    package:
+      name: "{{ item }}"
+      state: installed
+    with_items:
+        - "{{ required_packages }}"
+
+  - name: start and enable squid
+    become: true
+    service:
+      name: squid
+      state: started
+      enabled: yes
+
+

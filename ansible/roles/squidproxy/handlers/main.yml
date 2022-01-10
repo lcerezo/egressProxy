@@ -1,0 +1,8 @@
+---
+  - name: restart firewalld
+    service: name=firewalld state=restarted
+    become: true
+
+  - name: restart squid
+    service: name=squid state=restarted
+    become: true

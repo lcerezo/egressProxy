@@ -1,0 +1,42 @@
+#{{ ansible_managed }}
+acl lb_src_ip src {{ lb_src_ip }}
+{% for type,dict in squid_topo.iteritems() -%}
+acl {{ type  }} src {{ dict.src_ips|join(' ') }}
+{% endfor %}
+acl SSL_ports port 22 #ssh
+acl SSL_ports port 443
+acl Safe_ports port 80
+acl Safe_ports port 21
+acl Safe_ports port 22 #ssh
+acl Safe_ports port 443
+acl Safe_ports port 70 #http
+acl Safe_ports port 210 #ftp
+acl Safe_ports port 1025-65535 #https
+acl Safe_ports port 280 #gopher
+acl Safe_ports port 488 #wais
+acl Safe_ports port 591 #unregistered ports
+acl Safe_ports port 777 #http-mgmt
+acl CONNECT method CONNECT #gss-http
+{% for type,dict in squid_topo.iteritems() -%}
+acl permitlist_{{ type }} dstdomain "/etc/squid/permitlist_{{ type }}"
+{% endfor %}
+follow_x_forwarded_for allow lb_src_ip
+acl_uses_indirect_client on
+visible_hostname {{ inventory_hostname }}
+{% for type,dict in squid_topo.iteritems() -%}
+http_access allow permitlist_{{ type }} {{ type }}
+{% endfor %}
+http_access deny !Safe_ports
+http_access deny CONNECT !SSL_ports
+http_access allow localhost manager
+http_access deny manager
+http_access allow localhost
+http_access deny all
+http_port 3128
+refresh_pattern ^ftp:           1440    20%     10080
+refresh_pattern ^gopher:        1440    0%      1440
+refresh_pattern -i (/cgi-bin/|\?) 0     0%      0
+refresh_pattern .               0       20%     4320
+#dns_nameservers 8.8.8.8 8.8.4.4
+logformat squid %tg.%03tu duration=%tr total_time=%<tt source_ip=%>a source_port=%>p request_status=%Ss/%03>Hs response_size=%<st request_size=%>st request_method=%rm request_url=%ru squid_hierarchy_status=%Sh destination_ip=%<a x-forwarded-for=%{X-Forwarded-For}>h
+access_log syslog:local5.info squid

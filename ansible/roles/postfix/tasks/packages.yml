@@ -1,0 +1,10 @@
+---
+  - name: install postfix
+    package:
+      name: postfix
+      state: installed
+
+  - name: install postfix deps
+    package:
+      name: "{{ postfix_required_packages }}"
+      state: installed

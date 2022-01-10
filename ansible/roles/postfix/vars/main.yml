@@ -1,0 +1,32 @@
+---
+smtp:
+     client_networks:
+       - name: 10.1.32.0/24
+         status: OK
+       - name: 10.2.0.0/16
+         status: OK
+       - name: 10.254.0.0/16
+         status: OK
+       - name: 192.168.128.0/24
+         status: OK
+     destination_domains:
+       - name: .example.com
+         status: OK
+       - name: example.com
+         status: OK
+       - name: .luiscerezo.org
+         status: OK
+       - name: luiscerezo.org
+         status: OK
+       - name: amazon.com
+         status: OK
+     source_domains:
+       - name: .example.com
+         status: OK
+       - name: example.com
+         status: OK
+       - name: .luiscerezo.org
+         status: OK
+       - name: luiscerezo.org
+         status: OK
+

@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+{% for dstdomain in item.value.dst_domains -%}
+{{ dstdomain }}
+{% endfor %}

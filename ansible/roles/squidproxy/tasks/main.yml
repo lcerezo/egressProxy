@@ -1,0 +1,7 @@
+---
+ -  include_vars: vars/main.yml
+ -  include: packages.yml
+ -  include: iptables.yml
+ -  include: selinux.yml
+ -  include: files.yml
+ -  include: sysctl.yml

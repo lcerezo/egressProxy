@@ -1,0 +1,26 @@
+---
+ - name: enable firewalld
+   become: true
+   service:
+     name: firewalld
+     state: started
+     enabled: yes
+
+ - name: set firewall port for squid proxy
+   become: true
+   firewalld:
+     port={{ item }}
+     permanent=true
+     state=enabled
+     immediate=true
+     zone=public
+   with_items:
+     - "3128/tcp"
+
+ - name: enable logging of all denys
+   become: true
+   lineinfile:
+     path: /etc/firewalld/firewalld.conf
+     regexp: '^LogDenied'
+     line: 'LogDenied=unicast'
+   notify: restart firewalld

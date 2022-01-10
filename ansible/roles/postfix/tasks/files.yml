@@ -1,0 +1,48 @@
+---
+  - name: set fact for ses username based on ssm values
+    set_fact:
+      ses_smtpusername: "{{ lookup('aws_ssm', '/sesproxy/ses_smtpusername', region='us-east-1' ) }}"
+
+  - name: set fact for ses password based on ssm values
+    set_fact:
+      ses_smtpuserpassword: "{{ lookup('aws_ssm', '/sesproxy/ses_smtpuserpassword', region='us-east-1' ) }}"
+
+  - name: copy configuration files
+    template:
+      src: "{{ item }}.j2"
+      dest: "/etc/postfix/{{ item }}"
+      owner: root
+      group: root
+      mode: "0644"
+      selevel: s0
+      serole: object_r
+      setype: postfix_etc_t
+      seuser: system_u
+    with_items:
+      - "main.cf"
+      - "master.cf"
+      - "access_networks"
+      - "access_recipients"
+      - "access_senders"
+      - "sasl_passwd"
+      - "header_checks"
+    notify: restart postfix
+
+  - name: copy aliases
+    template:
+      src: "aliases.j2"
+      dest: "/etc/aliases"
+      owner: root
+      group: root
+      mode: "0644"
+      selevel: s0
+      serole: object_r
+      setype: etc_aliases_t
+      seuser: system_u
+    notify: restart postfix
+
+  - name: remove ipv6 loopback address from hosts file
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^\:\:1'
+      state: absent

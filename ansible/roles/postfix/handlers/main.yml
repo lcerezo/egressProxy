@@ -1,0 +1,19 @@
+---
+ - name: rerun newaliases
+   shell: "/bin/newaliases" 
+   listen: "restart postfix"
+
+ - name: rerun postmap
+   shell: "/sbin/postmap /etc/postfix/access_networks /etc/postfix/access_recipients /etc/postfix/access_senders"
+   listen: "restart postfix"
+
+ - name: rerun postmap hashmap for smtp creds
+   shell: "/sbin/postmap hash:/etc/postfix/sasl_passwd"
+   listen: "restart postfix"
+
+ - name: start and enable postfix
+   service:
+     name: postfix
+     state: restarted
+     enabled: true
+   listen: "restart postfix"

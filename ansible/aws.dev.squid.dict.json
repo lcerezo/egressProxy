@@ -1,0 +1,140 @@
+{
+  "required_packages": [
+    "squid",
+    "libselinux-python",
+    "policycoreutils-python"
+  ],
+  "squid_topo": {
+    "prod": {
+      "dst_domains": [
+        "id.prod.example.com",
+        "stg-id.test.prod.example.com",
+        "qa-id.test.prod.example.com"
+      ],
+      "src_ips": [
+        "10.52.128.18",
+        "10.52.128.19",
+        "10.52.128.21",
+        "192.168.141.18",
+        "192.168.141.19"
+      ]
+    },
+    "yum": {
+      "dst_domains": [
+        "yum.datadoghq.com",
+        "mirror.centos.org",
+        "mirrors.mit.edu",
+        "mirrors.gigenet.com",
+        "mirrors.oit.uci.edu",
+        "packages.oit.ncsu.edu",
+        "mirror.umd.edu",
+        "mirror.csclub.uwaterloo.ca",
+        "mirror.rackspace.com",
+        "download.fedoraproject.org",
+        "d2lzkl7pfhq30w.cloudfront.net",
+        "mirror.colorado.edu",
+        "mirror.grid.uchicago.edu",
+        "download.docker.com",
+        ".amazonaws.com"
+      ],
+      "src_ips": [
+        "10.254.0.0/16",
+        "10.255.0.0/16",
+        "10.96.0.0/16",
+        "10.97.0.0/16",
+        "10.98.0.0/16",
+        "10.99.0.0/16"
+      ]
+    },
+    "endpoints": {
+      "dst_domains": [
+        ".datadoghq.com",
+        ".victorops.com",
+        ".amazonaws.com",
+        "209.170.202.171",
+        "api.cloudflare.com",
+        "aws.amazon.com",
+        "d2lzkl7pfhq30w.cloudfront.net",
+        "download.fedoraproject.org",
+        ".docker.io",
+        "dynamodb.us-east-1.amazonaws.com",
+        "dynamodb.us-west-1.amazonaws.com",
+        "icanhazip.com"
+      ],
+      "src_ips": [
+        "10.254.0.0/16",
+        "10.255.0.0/16",
+        "10.96.0.0/16",
+        "10.97.0.0/16",
+        "10.98.0.0/16",
+        "10.99.0.0/16"
+      ]
+    },
+    "python": {
+      "dst_domains": [
+        "pypi.python.org",
+        "pypi.org",
+        "files.pythonhosted.org"
+      ],
+      "src_ips": [
+        "10.254.0.0/16",
+        "10.255.0.0/16",
+        "10.96.0.0/16",
+        "10.97.0.0/16",
+        "10.98.0.0/16",
+        "10.99.0.0/16"
+      ]
+    }
+  },
+  "lb_src_ip": "10.48.72.10",
+  "squid_http_port": 3128,
+  "dns_ips": "10.254.0.2",
+  "smtp": {
+    "destination_domains": [
+      {
+        "status": "OK",
+        "name": ".example.com"
+      },
+      {
+        "status": "OK",
+        "name": "example.com"
+      },
+      {
+        "status": "OK",
+        "name": ".example.biz"
+      },
+      {
+        "status": "OK",
+        "name": "example.biz"
+      }
+    ],
+    "client_networks": [
+      {
+        "status": "OK",
+        "name": "10.254.21.0/24"
+      },
+      {
+        "status": "OK",
+        "name": "10.254.22.0/24"
+      }
+    ],
+    "source_domains": [
+      {
+        "status": "OK",
+        "name": ".example.com"
+      },
+      {
+        "status": "OK",
+        "name": "example.com"
+      },
+      {
+        "status": "OK",
+        "name": ".example.biz"
+      },
+      {
+        "status": "OK",
+        "name": "example.biz"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+---
+ses_smtpusername: "THIS_VALUE_SHOULD_NOT_BE_HERE"
+ses_smtppassword: "THIS_VALUE_SHOULD_NOT_BE_HERE"
+postfix_required_packages:
+  - cyrus-sasl-plain
+  - postfix
+smtp:
+  client_networks:
+    - name: 192.0.2.0/24
+      status: OK
+  destination_domains:
+    - name: test.com
+      status: OK
+  sender_domains:
+    - name: test.org
+      status: OK

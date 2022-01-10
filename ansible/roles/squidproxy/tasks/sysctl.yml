@@ -1,0 +1,14 @@
+---
+- name: Ensure IPv6 is disabled for all NICs (1)
+  sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: 1
+    sysctl_file: /etc/sysctl.d/01-disable-ipv6.conf
+    reload: yes
+
+- name: Ensure IPv6 is disabled for all NICs (2)
+  sysctl:
+    name: net.ipv6.conf.default.disable_ipv6
+    value: 1
+    sysctl_file: /etc/sysctl.d/01-disable-ipv6.conf
+    reload: yes

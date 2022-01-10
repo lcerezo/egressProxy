@@ -1,0 +1,9 @@
+---
+- hosts: all
+  pre_tasks:
+  - name: get ec2 facts
+    ec2_metadata_facts:
+  
+  roles:
+    - { role: ../../current/ansible/roles/squidproxy/ }
+    - { role: ../../current/ansible/roles/postfix/ }

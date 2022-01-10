@@ -1,0 +1,14 @@
+---
+  - name: set selinux to targeted and enforcing
+    become: true
+    selinux:
+      policy=targeted
+      state=enforcing
+
+  - name: set selinux port for squid
+    become: true
+    seport:
+      ports: "{{ squid_http_port }}"
+      proto: tcp
+      setype: squid_port_t
+      state: present
